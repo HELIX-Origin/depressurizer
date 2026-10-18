@@ -332,3 +332,19 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+# Node & Frontend
+node_modules/
+.svelte-kit/
+build/
+.env
+.env.*
+!.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Rust & Tauri
+src-tauri/target/
+src-tauri/gen/
+**/*.rs.bk

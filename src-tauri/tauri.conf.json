@@ -1,0 +1,66 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Depressurizer",
+  "version": "0.8.0",
+  "identifier": "org.helixorigin.depressurizer",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Depressurizer",
+        "width": 1280,
+        "height": 820,
+        "minWidth": 940,
+        "minHeight": 600,
+        "resizable": true,
+        "decorations": false,
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost https://*.steamstatic.com https://*.akamaihd.net https://*.steamgriddb.com blob: data:; style-src 'self' 'unsafe-inline'; connect-src 'self' ipc: http://ipc.localhost https://*.steampowered.com https://*.steamstatic.com"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Utility",
+    "shortDescription": "Cross-platform Steam library categorizer and AutoCat manager",
+    "longDescription": "Depressurizer is an autonomous, cross-platform Steam library categorization and AutoCat management utility. It connects directly to your installed Steam client and official Steam Web APIs to organize your game collection with zero telemetry.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/64x64.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "nsis": {
+        "installMode": "both",
+        "installerIcon": "icons/icon.ico",
+        "sidebarImage": "windows/sidebar.bmp",
+        "installerHooks": "windows/hooks.nsh",
+        "languages": [
+          "English",
+          "Japanese",
+          "SimpChinese",
+          "TradChinese",
+          "Korean",
+          "Spanish",
+          "French",
+          "German",
+          "Russian",
+          "Portuguese"
+        ],
+        "displayLanguageSelector": true
+      }
+    }
+  }
+}

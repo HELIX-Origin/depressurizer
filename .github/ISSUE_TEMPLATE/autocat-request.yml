@@ -1,0 +1,39 @@
+name: 🧩 AutoCat request
+description: Suggest a new AutoCat rule for Depressurizer
+title: "[AutoCat]: Add AutoCat support for "
+labels: ["Type: Enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        AutoCat rules categorize games automatically from a data source. Please describe the rule you
+        would like and the data it can use.
+  - type: input
+    id: name
+    attributes:
+      label: AutoCat name
+      description: A short name for the proposed AutoCat rule.
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the AutoCat you'd like
+      description: What should it categorize, and how should categories be named?
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data source
+      description: |
+        Where does the data come from? Is there an API or embedded metadata (Steam Web API, store
+        metadata, or another documented source)?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+    validations:
+      required: false

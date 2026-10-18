@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use Depressurizer in your work, please cite it as below."
+title: "Depressurizer"
+abstract: "A fast, modern, cross-platform Steam library categorizer and AutoCat manager built with Tauri v2. Uses the official Steam Web API (key + SteamID64) to organize Steam libraries without touching local Steam client files."
+type: software
+authors:
+  - name: "HELIX Origin"
+    alias: "HELIX-Origin"
+    website: "https://www.helix-origin.club"
+license: GPL-3.0-or-later
+repository-code: "https://github.com/HELIX-Origin/depressurizer"
+url: "https://docs.helix-origin.club/depressurizer/"
+version: 0.8.0
+keywords:
+  - steam
+  - library
+  - autocat
+  - categorizer
+  - tauri

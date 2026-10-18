@@ -1,0 +1,54 @@
+// ==============================================================================
+// Depressurizer Global SCSS Entrypoint
+// ==============================================================================
+
+@use "tokens" as *;
+@use "mixins" as *;
+@use "components" as *;
+@use "titlebar" as *;
+
+:root {
+  --bg-canvas: #{$bg-canvas};
+  --bg-sidebar: #{$bg-sidebar};
+  --bg-card: #{$bg-card};
+  --bg-surface: #{$bg-surface};
+  --bg-surface-hover: #{$bg-surface-hover};
+  
+  --border-subtle: #{$border-subtle};
+  --border-medium: #{$border-medium};
+  --border-glass: #{$border-glass};
+  
+  --accent-cyan: #{$accent-cyan};
+  --accent-purple: #{$accent-purple};
+  --accent-rose: #{$accent-rose};
+  --accent-gold: #{$accent-gold};
+  --accent-emerald: #{$accent-emerald};
+  
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-muted: #{$text-muted};
+  --text-dim: #{$text-dim};
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: $bg-canvas;
+  color: $text-primary;
+  font-family: $font-sans;
+  font-size: 13px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}

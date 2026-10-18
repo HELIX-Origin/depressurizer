@@ -1,0 +1,252 @@
+// ==============================================================================
+// Depressurizer SCSS Components
+// ==============================================================================
+
+@use "tokens" as *;
+@use "mixins" as *;
+
+// Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: $radius-sm;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+  line-height: 1;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &.btn-sm {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  &.btn-primary {
+    background: linear-gradient(135deg, $accent-cyan 0%, $accent-cyan-dim 100%);
+    color: #030810;
+    box-shadow: 0 1px 4px rgba(72, 216, 242, 0.3);
+
+    &:hover {
+      filter: brightness(1.1);
+      box-shadow: $shadow-glow-cyan;
+    }
+  }
+
+  &.btn-accent {
+    background: linear-gradient(135deg, $accent-purple 0%, $accent-purple-dim 100%);
+    color: #ffffff;
+    box-shadow: 0 1px 4px rgba(176, 108, 255, 0.3);
+
+    &:hover {
+      filter: brightness(1.1);
+      box-shadow: $shadow-glow-purple;
+    }
+  }
+
+  &.btn-secondary {
+    background: $bg-surface;
+    color: $text-secondary;
+    border-color: $border-subtle;
+
+    &:hover {
+      background: $bg-surface-hover;
+      color: $text-primary;
+      border-color: $border-medium;
+    }
+  }
+
+  &.btn-ghost {
+    background: transparent;
+    color: $text-muted;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: $text-primary;
+    }
+  }
+
+  &.btn-danger {
+    background: rgba(244, 63, 94, 0.12);
+    color: $accent-rose;
+    border-color: rgba(244, 63, 94, 0.3);
+
+    &:hover {
+      background: rgba(244, 63, 94, 0.22);
+    }
+  }
+}
+
+// Form Controls
+.input-text {
+  background: $bg-surface;
+  border: 1px solid $border-subtle;
+  color: $text-primary;
+  border-radius: $radius-sm;
+  padding: 6px 10px;
+  font-size: 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:focus {
+    @include focus-ring;
+    border-color: $accent-cyan;
+  }
+
+  &::placeholder {
+    color: $text-dim;
+  }
+}
+
+.select-control {
+  background: $bg-surface;
+  border: 1px solid $border-subtle;
+  color: $text-primary;
+  border-radius: $radius-sm;
+  padding: 5px 8px;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:focus {
+    @include focus-ring;
+    border-color: $accent-cyan;
+  }
+}
+
+// Badges & Pills
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: $radius-xs;
+  line-height: 1;
+
+  &.badge-cyan {
+    background: rgba(72, 216, 242, 0.12);
+    color: $accent-cyan;
+    border: 1px solid rgba(72, 216, 242, 0.25);
+  }
+
+  &.badge-purple {
+    background: rgba(176, 108, 255, 0.12);
+    color: $accent-purple;
+    border: 1px solid rgba(176, 108, 255, 0.25);
+  }
+
+  &.badge-muted {
+    background: rgba(255, 255, 255, 0.05);
+    color: $text-muted;
+    border: 1px solid $border-glass;
+  }
+}
+
+// Modal Backdrop
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal-dialog {
+  background: $bg-card;
+  border: 1px solid $border-medium;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md, $shadow-glow-cyan;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &.modal-lg {
+    max-width: 820px;
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: $bg-sidebar;
+  border-bottom: 1px solid $border-subtle;
+
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: $text-primary;
+  }
+}
+
+.modal-body {
+  padding: 16px 18px;
+  overflow-y: auto;
+  @include custom-scrollbar;
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 18px;
+  background: $bg-sidebar;
+  border-top: 1px solid $border-subtle;
+}
+
+// Live AutoCat execution progress shown inside the AutoCat Studio modal
+.modal-progress {
+  padding: 12px 18px;
+  border-top: 1px solid $border-subtle;
+  background: rgba(72, 216, 242, 0.04);
+
+  .modal-progress-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: $accent-cyan;
+    margin-bottom: 6px;
+  }
+
+  .progress-bar-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+
+    .progress-bar-fill {
+      height: 100%;
+      background: $accent-cyan;
+      transition: width 0.2s ease;
+    }
+  }
+
+  .modal-progress-game {
+    margin-top: 6px;
+    font-size: 11px;
+    color: $text-dim;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

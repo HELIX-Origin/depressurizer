@@ -1,0 +1,42 @@
+// ==============================================================================
+// Depressurizer SCSS Mixins
+// ==============================================================================
+
+@use "tokens" as *;
+
+@mixin glass-panel {
+  background: rgba(13, 27, 45, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid $border-glass;
+}
+
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(72, 216, 242, 0.15);
+    border-radius: 3px;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: rgba(72, 216, 242, 0.35);
+    }
+  }
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(72, 216, 242, 0.4);
+}

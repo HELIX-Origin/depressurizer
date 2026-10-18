@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Documentation
+    url: https://docs.helix-origin.club/depressurizer/
+    about: Setup guides, AutoCat rules, Steam Web API keys, and backup management.
+  - name: 🧠 Technical Wiki
+    url: https://wiki.helix-origin.club/depressurizer/
+    about: Architecture, AutoCat internals, and developer references.
+  - name: 💬 Discussions
+    url: https://github.com/HELIX-Origin/depressurizer/discussions
+    about: Ask questions and share ideas with the community.
+  - name: 🔒 Security
+    url: https://github.com/HELIX-Origin/depressurizer/security
+    about: Report a security vulnerability privately (do not open a public issue).
