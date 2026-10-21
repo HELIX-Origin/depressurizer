@@ -250,3 +250,112 @@
     text-overflow: ellipsis;
   }
 }
+
+// Dropdown Menus (Upward & Downward)
+.dropdown-container {
+  position: relative;
+  display: inline-flex;
+}
+
+.dropdown-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: transparent;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 999;
+  min-width: 250px;
+  background: $bg-card;
+  border: 1px solid $border-medium;
+  border-radius: $radius-md;
+  box-shadow: $shadow-glass, 0 10px 30px rgba(0, 0, 0, 0.6);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  backdrop-filter: blur(14px);
+
+  &.dropdown-menu-up {
+    bottom: calc(100% + 6px);
+    left: 0;
+  }
+
+  &.dropdown-menu-down {
+    top: calc(100% + 6px);
+    left: 0;
+  }
+
+  .dropdown-header {
+    padding: 6px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: $text-muted;
+  }
+
+  .dropdown-divider {
+    height: 1px;
+    background: $border-subtle;
+    margin: 4px 0;
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    background: transparent;
+    border: none;
+    border-radius: $radius-sm;
+    color: $text-primary;
+    text-align: left;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    width: 100%;
+
+    &:hover {
+      background: rgba(72, 216, 242, 0.12);
+      color: $accent-cyan;
+    }
+
+    &.highlight {
+      background: rgba(176, 108, 255, 0.14);
+      color: #e9d5ff;
+
+      &:hover {
+        background: rgba(176, 108, 255, 0.24);
+        color: #ffffff;
+      }
+    }
+
+    .icon {
+      font-size: 14px;
+      flex-shrink: 0;
+      width: 18px;
+      text-align: center;
+    }
+
+    .item-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+
+      .title {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 1.2;
+      }
+
+      .desc {
+        font-size: 10px;
+        color: $text-dim;
+        line-height: 1.2;
+      }
+    }
+  }
+}

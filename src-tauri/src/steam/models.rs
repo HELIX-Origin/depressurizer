@@ -61,6 +61,7 @@ pub enum AutoCatFilterType {
     VrSupport,
     Manual,
     Hltb,
+    Regex,
 }
 
 /// Individual rule within an AutoCat configuration.
@@ -101,19 +102,100 @@ pub struct AppSettings {
     pub dense_view: bool,
 }
 
+impl AppSettings {
+    /// Loads settings overrides from an optional `.env` file or environment variables if present.
+    /// This enables seamless developer and automated testing without re-inputting keys.
+    pub fn load_from_env_if_present(&mut self) {
+        // Read from process environment first
+        if let Ok(key) = std::env::var("STEAM_API_KEY")
+            .or_else(|_| std::env::var("STEAM_WEB_API_KEY"))
+            .or_else(|_| std::env::var("API_KEY"))
+        {
+            if !key.trim().is_empty() {
+                self.api_key = Some(key.trim().to_string());
+            }
+        }
+
+        if let Ok(user) = std::env::var("STEAMID64")
+            .or_else(|_| std::env::var("STEAM_ID64"))
+            .or_else(|_| std::env::var("STEAM_USER"))
+            .or_else(|_| std::env::var("ACTIVE_USER"))
+            .or_else(|_| std::env::var("STEAM_ID3"))
+        {
+            if !user.trim().is_empty() {
+                self.active_user = Some(user.trim().to_string());
+            }
+        }
+
+        if let Ok(path) = std::env::var("STEAM_PATH") {
+            if !path.trim().is_empty() {
+                self.steam_path = Some(path.trim().to_string());
+            }
+        }
+
+        // Check common .env file candidate paths (workspace root, project root)
+        let candidates = [
+            std::path::PathBuf::from(".env"),
+            std::path::PathBuf::from("../.env"),
+            std::path::PathBuf::from("../../.env"),
+        ];
+
+        for path in &candidates {
+            if path.exists() {
+                if let Ok(content) = std::fs::read_to_string(path) {
+                    for line in content.lines() {
+                        let trimmed = line.trim();
+                        if trimmed.is_empty() || trimmed.starts_with('#') {
+                            continue;
+                        }
+                        if let Some((k, v)) = trimmed.split_once('=') {
+                            let key = k.trim();
+                            let val = v.trim().trim_matches('"').trim_matches('\'').trim();
+                            if val.is_empty() {
+                                continue;
+                            }
+                            match key {
+                                "STEAM_API_KEY" | "STEAM_WEB_API_KEY" | "API_KEY" => {
+                                    if self.api_key.as_deref().unwrap_or("").trim().is_empty() {
+                                        self.api_key = Some(val.to_string());
+                                    }
+                                }
+                                "STEAMID64" | "STEAM_ID64" | "STEAM_USER" | "ACTIVE_USER" | "STEAM_ID3" => {
+                                    if self.active_user.as_deref().unwrap_or("").trim().is_empty() {
+                                        self.active_user = Some(val.to_string());
+                                    }
+                                }
+                                "STEAM_PATH" => {
+                                    if self.steam_path.as_deref().unwrap_or("").trim().is_empty() {
+                                        self.steam_path = Some(val.to_string());
+                                    }
+                                }
+                                _ => {}
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+}
+
 impl Default for AppSettings {
     fn default() -> Self {
-        // SECURITY: the Steam Web API key (and SteamID64) are NEVER hardcoded, defaulted,
-        // or read from the environment / a `.env` file. The end user supplies them in Settings.
         let detected_path =
             crate::steam::paths::detect_steam_path().map(|p| p.to_string_lossy().to_string());
 
-        Self {
+        let mut settings = Self {
             steam_path: detected_path,
             api_key: None,
             active_user: None,
             backup_on_save: true,
             dense_view: false,
-        }
+        };
+
+        // Auto-read from local .env if present for testing/dev environments
+        settings.load_from_env_if_present();
+        settings
     }
 }

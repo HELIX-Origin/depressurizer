@@ -44,7 +44,8 @@ export type AutoCatFilterType =
   | "Platform"
   | "VrSupport"
   | "Manual"
-  | "Hltb";
+  | "Hltb"
+  | "Regex";
 
 export interface AutoCatRule {
   id: string;

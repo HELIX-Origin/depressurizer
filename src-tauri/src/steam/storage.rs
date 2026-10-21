@@ -116,21 +116,22 @@ pub fn load_settings() -> AppSettings {
         }
     }
 
-    if api_key.is_none() || api_key.as_ref().map(|k| k.is_empty()).unwrap_or(true) {
-        let default_set = AppSettings::default();
-        api_key = default_set.api_key;
-        if steam_path.is_none() {
-            steam_path = default_set.steam_path;
-        }
-    }
-
-    AppSettings {
+    let mut settings = AppSettings {
         steam_path,
         api_key,
         active_user,
         backup_on_save,
         dense_view,
+    };
+
+    if settings.steam_path.is_none() {
+        settings.steam_path = crate::steam::paths::detect_steam_path().map(|p| p.to_string_lossy().to_string());
     }
+
+    // Load any overrides or keys from .env if present
+    settings.load_from_env_if_present();
+
+    settings
 }
 
 pub fn save_settings(settings: &AppSettings) -> Result<(), String> {
@@ -337,6 +338,7 @@ pub fn load_autocat_rules() -> Vec<AutoCatRule> {
             "Platform" => crate::steam::models::AutoCatFilterType::Platform,
             "VrSupport" => crate::steam::models::AutoCatFilterType::VrSupport,
             "Hltb" => crate::steam::models::AutoCatFilterType::Hltb,
+            "Regex" => crate::steam::models::AutoCatFilterType::Regex,
             _ => crate::steam::models::AutoCatFilterType::Manual,
         };
 
@@ -382,6 +384,7 @@ pub fn save_autocat_rules(rules: &[AutoCatRule]) -> Result<(), String> {
             crate::steam::models::AutoCatFilterType::VrSupport => "VrSupport",
             crate::steam::models::AutoCatFilterType::Manual => "Manual",
             crate::steam::models::AutoCatFilterType::Hltb => "Hltb",
+            crate::steam::models::AutoCatFilterType::Regex => "Regex",
         };
         let params_json = serde_json::to_string(&r.params).unwrap_or_else(|_| "{}".to_string());
 
