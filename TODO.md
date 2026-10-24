@@ -10,73 +10,48 @@
 
 - **100% Active Direction Accuracy**: Task items and checklists must reflect the current state of Depressurizer with zero contradictions.
 - **Normalized Directives**: Rewrite user directives into clean, self-contained engineering requirements.
-- **Done Moves Down**: Completed items are marked with `- [x]` and archived when workstreams finish.
-- **Zero-Warning Gate**: All builds and tests must pass with 0 errors and 0 warnings (`cargo test`, `svelte-check`).
+- **Done Moves Down**: Completed items are marked with `- [x]` and collapsed to minimal one-line entries under completed workstreams.
+- **Zero-Warning Gate**: All builds and tests must pass with 0 errors and 0 warnings (`MSVC /W4 /WX`).
 
 ---
 
 ## 🔥 Active Workstreams
 
-### 🎯 [depressurizer] Workstream W.05: Multi-Platform Packaging & GitHub CI Pipeline
+### 🎯 [depressurizer] Workstream W.05: Native Windows C++ Modernization & UI Polish (v1.0.0)
 - **Project Identifier:** `[depressurizer]`
 - **Repository Path:** `projects/depressurizer`
-- **Target Component:** Packaging & CI/CD
+- **Status:** 🚧 In progress. Abandon Tauri v2 rewrite; focus 100% on fixing the native C++ app and polishing UI.
+- **Target Component:** Native C++ Core & Win32 UI (GPL-3.0)
 
-```mermaid
-flowchart TD
-    W5_1["[depressurizer] Verify Tauri Installer Configs"] --> W5_2["[depressurizer] Build GitHub Actions CI Workflow"]
-    W5_2 --> W5_3["[depressurizer] Quality Gate Verification"]
-```
+**Locked user directives (normalized by domain):**
+- **Abandon Tauri Rewrite**: Cease development on the experimental Tauri v2 / Rust / SvelteKit rewrite.
+- **Native C++ Windows Core**: Focus on maintaining, auditing, and fixing the already existing native C++ application for Windows.
+- **UI Modernization**: Polish up the visual ugliness and clunkiness of the legacy interface. Implement modern Windows 11 styling (dark mode, refined typography, responsive proportions, clean controls).
+- **Steam Integration Safety**: Ensure safe VDF reading and writing with mandatory automatic timestamped backups before saving.
+- **Licensing Invariant**: Strictly preserve GPL-3.0 across all files.
 
 **Implementation checklist:**
-- [ ] **[depressurizer] 1. Multi-Platform Installer Configuration**:
-  - [ ] `[depressurizer]` NSIS Windows installer verification (all-users vs per-user installation paths, desktop shortcut checkbox, clean uninstaller registry hooks).
-  - [ ] `[depressurizer]` macOS bundle verification (DMG volume name, icon layout, application symlink).
-  - [ ] `[depressurizer]` Linux AppImage & Debian package metadata verification (`.desktop` categories and icons).
-- [ ] **[depressurizer] 2. GitHub Actions CI Pipeline**:
-  - [ ] `[depressurizer]` Create `.github/workflows/ci.yml` matrix building on `windows-latest`, `macos-latest`, `ubuntu-latest`.
-  - [ ] `[depressurizer]` Enforce `cargo test`, `cargo check`, and `svelte-check` with zero warnings in CI.
-  - [ ] `[depressurizer]` Automate release bundle generation on SemVer tag push.
-- [ ] **[depressurizer] 3. Quality Gate & Zero-Warning Verification**:
-  - [ ] `[depressurizer]` `cargo test` passing all backend test cases (dynamic categories, regex filter, HLTB playtime range, genre matching).
-  - [ ] `[depressurizer]` `npm run check` reporting 0 errors and 0 warnings.
-  - [ ] `[depressurizer]` Offline launch check from SQLite database cache.
+- [ ] **[depressurizer] 1. Native C++ Core Audit & Modernization**:
+  - [ ] `[depressurizer]` Audit native codebase; resolve legacy build warnings and deprecations under MSVC C++20.
+  - [ ] `[depressurizer]` Fix existing bugs in AutoCat rule evaluation and Steam profile detection.
+  - [ ] `[depressurizer]` Ensure memory safety and RAII handle management across all modules.
+- [ ] **[depressurizer] 2. Steam VDF & Web API Hardening**:
+  - [ ] `[depressurizer]` Validate and modernize Valve Data Format parser for modern Steam config layouts.
+  - [ ] `[depressurizer]` Enforce automatic timestamped backup of `sharedconfig.vdf` before writes.
+  - [ ] `[depressurizer]` Ensure key-only Steam Web API integration operates cleanly with proper timeouts.
+- [ ] **[depressurizer] 3. Native UI Redesign & Polish**:
+  - [ ] `[depressurizer]` Redesign legacy forms, tables, and dialogs to eliminate visual clunkiness and ugliness.
+  - [ ] `[depressurizer]` Implement modern Windows 11 dark mode theme support.
+  - [ ] `[depressurizer]` Refine category workbench, batch actions, and rule editor ergonomics.
+- [ ] **[depressurizer] 4. Quality Gate & Packaging**:
+  - [ ] `[depressurizer]` Enforce MSVC `/W4 /WX` (zero warnings treated as errors).
+  - [ ] `[depressurizer]` Author native Windows installer (NSIS/MSI) and release packaging.
 
 ---
 
 ## ✅ Completed Workstreams
 
-### 🎯 [depressurizer] Workstream W.04: Workbench Dock Dropdown, Multiselect & UI Refinements
-- **Delivered (2026-10-18):**
-  - [x] `[depressurizer]` Main library view bottom action dock with native filter `<select id="autocat-filter-select">` dropdown.
-  - [x] `[depressurizer]` Prebuilt filters populated: HowLongToBeat, Genres, Tags, Years, Scores, VR, Dev/Pub, Platforms, and All Configured Rules.
-  - [x] `[depressurizer]` `Apply AutoCat` button executing selected filter directly without text inputs.
-  - [x] `[depressurizer]` Dynamic `Only selected ({count})` checkbox scoping categorization to selected games.
-  - [x] `[depressurizer]` Dedicated `⚙️ AutoCat Studio…` button opening rule management dialog.
-  - [x] `[depressurizer]` Workbench table multiselect with batch category assign/clear, favorite toggle, and hidden toggle.
-  - [x] `[depressurizer]` Svelte accessibility compliance (`role="dialog"`, `aria-modal="true"`, keyboard dismissals).
-
-### 🎯 [depressurizer] Workstream W.03: AutoCat Studio, Dynamic Categorization & Regex Engine
-- **Delivered (2026-10-18):**
-  - [x] `[depressurizer]` Added `AutoCatFilterType::Regex` supporting regular expressions with capture group auto-naming (`^([A-Z])` → A-Z folders).
-  - [x] `[depressurizer]` Dynamic target category derivation (`⚡ Dynamic (Auto)`), eliminating mandatory manual category names.
-  - [x] `[depressurizer]` Collapsible in-app explanatory guide card in AutoCat Studio (`📘 How Custom Filters & Dynamic AutoCat Work`).
-  - [x] `[depressurizer]` One-click `⚡ Auto-Provision Standard Suite` for prebuilt rules.
-  - [x] `[depressurizer]` Restored local `.env` loading (`STEAM_API_KEY`, `STEAMID64`, `STEAM_PATH`) in `models.rs` and `storage.rs` for testing/development.
-  - [x] `[depressurizer]` Backend unit tests added: `test_autocat_dynamic_categories_and_prefix` and `test_autocat_regex_filter`.
-
-### 🎯 [depressurizer] Workstream W.02: Official Steam Web API Engine & SQLite Storage
-- **Delivered (2026-10-18):**
-  - [x] `[depressurizer]` Official Steam Web API client (`IPlayerService/GetOwnedGames/v1`) fetching all owned games.
-  - [x] `[depressurizer]` Official Store API tag/genre lookup with rate-limiting and cache.
-  - [x] `[depressurizer]` HowLongToBeat (HLTB) playtime enrichment (main story, main+extras, completionist) and AutoCat filter integration.
-  - [x] `[depressurizer]` Native SQLite (`rusqlite`) database storage (`depressurizer.db`) in WAL mode for lightning-fast loads and offline support.
-  - [x] `[depressurizer]` Tokio background workers streaming real-time progress events to prevent UI hangs.
-  - [x] `[depressurizer]` Legacy C# WinForms codebase preserved in `legacy/` as an intentional historical reference; local VDF parsing removed.
-
-### 🎯 [depressurizer] Workstream W.01: Tauri v2 Core Scaffolding & Community Health
-- **Delivered (2026-10-18):**
-  - [x] `[depressurizer]` Scaffolded Tauri v2 architecture (Rust backend + Svelte 5 frontend + TypeScript + Vite).
-  - [x] `[depressurizer]` Modular SCSS design system with obsidian dark theme tokens (`#07111f`, `#0d1b2d`, `#48d8f2`, `#b06cff`).
-  - [x] `[depressurizer]` Full community-health documents shipped (`CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md`, `PRIVACY.md`, `CHANGELOG.md`, `GOVERNANCE.md`, `CITATION.cff`, `TOS.md`, PR template, issue forms).
-  - [x] `[depressurizer]` GPL-3.0 license preserved per copyleft revival fork invariant.
+- **[depressurizer]** W.04 — Workbench Dock & Filter Architecture: Prototyped filter selection and AutoCat rule structures.
+- **[depressurizer]** W.03 — AutoCat Studio & Regex Engine: Rule tree definitions and dynamic category naming.
+- **[depressurizer]** W.02 — Steam API & Database Persistence: Web API library retrieval and metadata caching.
+- **[depressurizer]** W.01 — Project Foundation & Governance: Project repository initialization and GPL-3.0 governance setup.
