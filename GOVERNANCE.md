@@ -7,7 +7,7 @@ This document describes how **Depressurizer** (a
 
 | Role | Responsibilities |
 | --- | --- |
-| **Maintainers** | Set direction, review and merge pull requests, manage releases and tags, triage issues, and uphold the Code of Conduct. |
+| **Maintainer** | Sets project direction, reviews and merges pull requests, publishes releases and tags, triages issues, and upholds project standards. |
 | **Contributors** | Submit issues, discussions, documentation, and pull requests under the project's license and contribution guidelines. |
 | **Users** | File bug reports and feature requests and follow the project's [Code of Conduct](./CODE_OF_CONDUCT.md). |
 
@@ -16,14 +16,13 @@ This document describes how **Depressurizer** (a
 - Day-to-day decisions happen in issues and pull requests through discussion and review.
 - Significant changes (architecture, data handling, or the Steam Web API integration model) should be
   raised as an issue or discussion before implementation.
-- Maintainers seek rough consensus; where consensus cannot be reached, maintainers decide by majority
-  and record the rationale on the relevant issue or pull request.
+- The project maintainer sets the roadmap, reviews contributions, and has final decision-making authority on scope and architecture.
 
 ## Releases
 
 - Releases follow [Semantic Versioning](https://semver.org/) (`vMAJOR.MINOR.PATCH`) and receive
-  human-written release notes.
-- Only maintainers cut releases and push tags.
+  curated release notes.
+- Releases and git tags are published by the project maintainer.
 - All notable changes are recorded in [CHANGELOG.md](./CHANGELOG.md).
 
 ## Contributions
